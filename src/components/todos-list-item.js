@@ -10,7 +10,13 @@ export default class TodosListItem extends React.Component {
     }
 
     renderTaskSection() {
-        const { task, isCompleted } = this.props;
+        console.log(this.props)
+        const { task, 
+            isCompleted, 
+            description,
+            status,
+            dueDate, 
+        } = this.props;
 
         const taskStyle = {
             color: isCompleted ? 'green' : 'red',
@@ -22,6 +28,9 @@ export default class TodosListItem extends React.Component {
                 <td>
                     <form onSubmit={this.onSaveClick.bind(this)}>
                         <input type="text" defaultValue={task} ref="editInput" />
+                        <input type="text" defaultValue={description} ref="editInput" />
+                        <input type="text" defaultValue={status} ref="editInput" />
+                        <input name="date" id="exampleDate" placeholder="date placeholder" type="date" className="form-control" defaultValue = {dueDate} />
                     </form>
                 </td>
             );
@@ -32,6 +41,9 @@ export default class TodosListItem extends React.Component {
                 onClick={this.props.toggleTask.bind(this, task)}
             >
                 {task}
+                {description}
+                {status}
+                {dueDate}
             </td>
         );
     }

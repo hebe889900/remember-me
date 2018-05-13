@@ -1,14 +1,21 @@
 import React from 'react';
 import CreateTodo from './create-todo';
 import TodosList from './todos-list';
+import moment from 'moment';
 
 const todos = [
 {
     task: 'make React tutorial',
+    description: 'Spend one day to finish up the react tutorial',
+    status: 'pending',
+    dueDate: '2018-06-01',
     isCompleted: false
 },
 {
     task: 'eat dinner',
+    description: 'Eat dinner tonight',
+    status: 'done',
+    dueDate: '2018-06-01',    
     isCompleted: true
 }
 ];
@@ -26,6 +33,7 @@ export default class App extends React.Component {
         return (
             <div>
                 <h1>React ToDos App</h1>
+                <h2>{moment().format("YYYY-MM-DD")}</h2>
                 <CreateTodo todos={this.state.todos} createTask={this.createTask.bind(this)} />
                 <TodosList
                     todos={this.state.todos}
@@ -43,11 +51,10 @@ export default class App extends React.Component {
         this.setState({ todos: this.state.todos });
     }
 
-    createTask(task) {
+    createTask(task, description, status, dueDate) {
         this.state.todos.push({
             task,
-            Title,
-            Description,
+            description,
             status,
             dueDate,
             isCompleted: false
