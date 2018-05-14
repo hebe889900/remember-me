@@ -19,9 +19,9 @@ export default class TodosList extends React.Component {
         return (
             <form onSubmit={this.handleCreate.bind(this)}>
                 <input type="text" placeholder="What do I need to do?" ref="createInput" />
-                <input type="text" placeholder="What will be the description?" ref="createInput" />
-                <input type="text" placeholder="What will be the status?" ref="createInput" />
-                <input name="date" id="exampleDate" placeholder="date placeholder" type="date" className="form-control" />
+                <input type="text" placeholder="What will be the description?" ref="createDescription" />
+                <input type="text" placeholder="What will be the status?" ref="createStatus" />
+                <input name="date" id="exampleDate" placeholder="date placeholder" type="date" className="form-control" ref="createDueDate"/>
                 <button>Create</button>
                 {this.renderError()}
             </form>
@@ -32,8 +32,14 @@ export default class TodosList extends React.Component {
         event.preventDefault();
 
         const createInput = this.refs.createInput;
+        const createDescription = this.refs.createDescription;
+        const createStatus = this.refs.createStatus;
+        const createDueDate = this.refs.createDueDate;
         const task = createInput.value;
-        const validateInput = this.validateInput(task);
+        const description = createDescription.value;
+        const status = createStatus.value;
+        const dueDate = createDueDate.value;
+        const validateInput = this.validateInput(task, description, status, dueDate);
 
         if (validateInput) {
             this.setState({ error: validateInput });
@@ -41,13 +47,22 @@ export default class TodosList extends React.Component {
         }
 
         this.setState({ error: null });
-        this.props.createTask(task);
-        this.refs.createInput.value = '';
+        this.props.createTask(task, description, status, dueDate);
+        this.refs.createInput.value = '';//Clear input values
+        this.refs.createDescription.value = '';//Clear input values
+        this.refs.createStatus .value = '';//Clear input values
+        this.refs.createDueDate.value = '';//Clear input values
     }
 
-    validateInput(task) {
+    validateInput(task, description, status, dueDate) {
         if (!task) {
             return 'Please enter a task.';
+        } else if (!description) {
+            return 'Please enter a description.';
+        } else if (!status) {
+            return 'Please enter a status.';
+        } else if (!dueDate) {
+            return 'Please enter a due date.';
         } else if (_.find(this.props.todos, todo => todo.task === task)) {
             return 'Task already exists.';
         } else {

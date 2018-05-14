@@ -1,7 +1,9 @@
 import React from 'react';
 import CreateTodo from './create-todo';
 import TodosList from './todos-list';
+import Filters from './filters';
 import moment from 'moment';
+import '../main.css';
 
 const todos = [
 {
@@ -41,6 +43,7 @@ export default class App extends React.Component {
                     saveTask={this.saveTask.bind(this)}
                     deleteTask={this.deleteTask.bind(this)}
                 />
+                <Filters />
             </div>
         );
     }
@@ -62,9 +65,10 @@ export default class App extends React.Component {
         this.setState({ todos: this.state.todos });
     }
 
-    saveTask(oldTask, newTask) {
-        const foundTodo = _.find(this.state.todos, todo => todo.task === oldTask);
-        foundTodo.task = newTask;
+    saveTask(oldTask, newTask, varname) {
+        const foundTodo = _.find(this.state.todos, todo => todo[varname] === oldTask);
+        console.log(foundTodo, foundTodo[varname]);
+        foundTodo[varname] = newTask;
         this.setState({ todos: this.state.todos });
     }
 
