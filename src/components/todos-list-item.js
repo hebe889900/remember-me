@@ -29,17 +29,25 @@ export default class TodosListItem extends React.Component {
             return (
                 <li>
                     <form onSubmit={this.onSaveClick.bind(this)}>
-                        <input type="text" defaultValue={task} ref="editInput" />
-                        <input type="text" defaultValue={description} ref="editDescription" />
-                        <input type="text" defaultValue = {status} ref="editStatus" />
-                        <input name="date" id="exampleDate" placeholder="date placeholder" type="date" className="form-control" defaultValue = {dueDate} ref="editDueDate" />
+                        <div className="form-group">
+                        <input type="text" className="form-control" defaultValue={task} ref="editInput" />
+                        </div>
+                        <div className="form-group">
+                        <input type="text" className="form-control" defaultValue={description} ref="editDescription" />
+                        </div>
+                        <div className="form-group">
+                        <input type="text" className="form-control" defaultValue = {status} ref="editStatus" />
+                        </div>
+                        <div className="form-group">
+                        <input name="date" className="form-control" id="exampleDate" placeholder="date placeholder" type="date" className="form-control" defaultValue = {dueDate} ref="editDueDate" />
+                        </div>
                     </form>
                 </li>
             );
         }
 
         return (
-            <li style={taskStyle}
+            <div style={taskStyle}
                 onClick={this.props.toggleTask.bind(this, task)}
             >
                 <input className="toggle" type="checkbox"/>
@@ -49,25 +57,25 @@ export default class TodosListItem extends React.Component {
                     {status}
                     {dueDate}                
                 </label>
-            </li>           
+            </div>           
         );
     }
 
     renderActionsSection() {
         if (this.state.isEditing) {
             return (
-                <li>
-                    <button onClick={this.onSaveClick.bind(this)}>Save</button>
-                    <button onClick={this.onCancelClick.bind(this)}>Cancel</button>
-                </li>
+                <div>
+                    <button className="btn btn-primary" onClick={this.onSaveClick.bind(this)}>Save</button>
+                    <button className="btn btn-primary" onClick={this.onCancelClick.bind(this)}>Cancel</button>
+                </div>
             );
         }
 
         return (
-            <li>
-                <button onClick={this.onEditClick.bind(this)}>Edit</button>
-                <button onClick={this.props.deleteTask.bind(this, this.props.task)}>Delete</button>
-            </li>
+            <div>
+                <button className="btn btn-primary" onClick={this.onEditClick.bind(this)}>Edit</button>
+                <button className="btn btn-primary" onClick={this.props.deleteTask.bind(this, this.props.task)}>Delete</button>
+            </div>
         );
     }
 

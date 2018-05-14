@@ -33,9 +33,11 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1>React ToDos App</h1>
-                <h2>{moment().format("YYYY-MM-DD")}</h2>
+            <div className = "todoapp">
+                <header className = "header">
+                    <h2>To Do App</h2>
+                    <h4>{moment().format("YYYY-MM-DD")}</h4>
+                </header>
                 <CreateTodo todos={this.state.todos} createTask={this.createTask.bind(this)} />
                 <TodosList
                     todos={this.state.todos}
