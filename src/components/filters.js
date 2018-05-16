@@ -3,7 +3,7 @@ import React from 'react';
 export default class Filters extends React.Component {
     constructor(props) {
         super(props);
-
+        console.log(props);
         this.state = {
             page: "all"
         };
@@ -11,6 +11,7 @@ export default class Filters extends React.Component {
 
     render() {
         return (
+            <footer className = "footer">
                 <ul className="filters">
                     <li>
                         <a href="#" className="selected">All</a>
@@ -24,6 +25,7 @@ export default class Filters extends React.Component {
                         <a href="#">Completed</a>
                     </li>
                 </ul>
+            </footer>
         );
     }
 

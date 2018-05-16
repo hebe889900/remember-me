@@ -21,70 +21,166 @@ export default class TodosListItem extends React.Component {
         } = this.props;
 
         const taskStyle = {
-            color: isCompleted ? 'green' : 'red',
+            color: isCompleted ? '#d9d9d9' : 'black',
+            textDecoration: isCompleted ? 'line-through' : 'none',
             cursor: 'pointer'
         };
 
         if (this.state.isEditing) {
             return (
-                <li>
+                <tr>
                     <form onSubmit={this.onSaveClick.bind(this)}>
                         <div className="form-group">
                         <input type="text" className="form-control" defaultValue={task} ref="editInput" />
                         </div>
+                    </form>
+                </tr>
+            );
+        }
+
+        return (
+                <td style={taskStyle}><p>{task}</p></td>          
+        );
+    }
+
+
+    renderDescriptionSection() {
+        console.log(this.props)
+        this.props.status = (this.props.dueDate < moment().format("YYYY-MM-DD")) ? "overDue" : this.props.status;
+        const { task, 
+            isCompleted, 
+            description,
+            status,
+            dueDate, 
+        } = this.props;
+
+        const taskStyle = {
+            color: isCompleted ? '#d9d9d9' : 'black',
+            textDecoration: isCompleted ? 'line-through' : 'none',
+            cursor: 'pointer'
+        };
+
+        if (this.state.isEditing) {
+            return (
+                <tr>
+                    <form onSubmit={this.onSaveClick.bind(this)}>
                         <div className="form-group">
                         <input type="text" className="form-control" defaultValue={description} ref="editDescription" />
                         </div>
+                    </form>
+                </tr>
+            );
+        }
+
+        return (
+                <td style={taskStyle}>
+                    <p className ="card-text">
+                        {description}                     
+                    </p>
+                </td>          
+        );
+    }
+
+    renderStatusSection() {
+        console.log(this.props)
+        this.props.status = (this.props.dueDate < moment().format("YYYY-MM-DD")) ? "overDue" : this.props.status;
+        const { task, 
+            isCompleted, 
+            description,
+            status,
+            dueDate, 
+        } = this.props;
+
+        const taskStyle = {
+            color: isCompleted ? '#d9d9d9' : 'black',
+            textDecoration: isCompleted ? 'line-through' : 'none',
+            cursor: 'pointer'
+        };
+
+        if (this.state.isEditing) {
+            return (
+                <tr>
+                    <form onSubmit={this.onSaveClick.bind(this)}>
                         <div className="form-group">
                         <input type="text" className="form-control" defaultValue = {status} ref="editStatus" />
                         </div>
+                    </form>
+                </tr>
+            );
+        }
+
+        return (
+                <td style={taskStyle}>
+                    <p className ="card-text">
+                        {status}                     
+                    </p>
+                </td>          
+        );
+    }
+
+     renderDueDateSection() {
+        console.log(this.props)
+        this.props.status = (this.props.dueDate < moment().format("YYYY-MM-DD")) ? "overDue" : this.props.status;
+        const { task, 
+            isCompleted, 
+            description,
+            status,
+            dueDate, 
+        } = this.props;
+
+        const taskStyle = {
+            color: isCompleted ? '#d9d9d9' : 'black',
+            textDecoration: isCompleted ? 'line-through' : 'none',
+            cursor: 'pointer'
+        };
+
+        if (this.state.isEditing) {
+            return (
+                <tr>
+                    <form onSubmit={this.onSaveClick.bind(this)}>
                         <div className="form-group">
                         <input name="date" className="form-control" id="exampleDate" placeholder="date placeholder" type="date" className="form-control" defaultValue = {dueDate} ref="editDueDate" />
                         </div>
                     </form>
-                </li>
+                </tr>
             );
         }
 
         return (
-            <div style={taskStyle}
-                onClick={this.props.toggleTask.bind(this, task)}
-            >
-                <input className="toggle" type="checkbox"/>
-                <label>
-                    {task}
-                    {description}
-                    {status}
-                    {dueDate}                
-                </label>
-            </div>           
+                <td style={taskStyle}>
+                    <p className ="card-text">
+                        {dueDate}                        
+                    </p>
+                </td>         
         );
-    }
-
+    }       
     renderActionsSection() {
         if (this.state.isEditing) {
             return (
-                <div>
-                    <button className="btn btn-primary" onClick={this.onSaveClick.bind(this)}>Save</button>
-                    <button className="btn btn-primary" onClick={this.onCancelClick.bind(this)}>Cancel</button>
-                </div>
+                <td>
+                    <button className="btn btn-success" onClick={this.onSaveClick.bind(this)}>Save</button>
+                    <button className="btn btn-danger" onClick={this.onCancelClick.bind(this)}>Cancel</button>
+                </td>
             );
         }
 
         return (
-            <div>
-                <button className="btn btn-primary" onClick={this.onEditClick.bind(this)}>Edit</button>
-                <button className="btn btn-primary" onClick={this.props.deleteTask.bind(this, this.props.task)}>Delete</button>
-            </div>
+            <td>
+                <button className="btn btn-success" onClick={this.onEditClick.bind(this)}>Edit</button>
+                <button className="btn btn-danger" onClick={this.props.deleteTask.bind(this, this.props.task)}>Delete</button>
+            </td>
         );
     }
 
     render() {
         return (
-                <li>
+                <tr>
                 {this.renderTaskSection()}
+                {this.renderDescriptionSection()}
+                {this.renderStatusSection()}
+                {this.renderDueDateSection()}
                 {this.renderActionsSection()}
-                </li>
+                </tr>
         );
     }
 

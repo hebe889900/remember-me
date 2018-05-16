@@ -18,17 +18,33 @@ export default class TodosList extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleCreate.bind(this)}>
-                <div className="form-group">
-                <input type="text" className="form-control"  placeholder="What do I need to do?" ref="createInput" />
+                <div className="form-group row">
+                    <label className = "col-sm-2 col-form-label col-form-label-lg">Title</label>
+                    <div className="col-sm-10">
+                        <input type="text" className="form-control"  placeholder="Title" ref="createInput" />
+                    </div>
                 </div>
-                <div className="form-group">
-                <input type="text" className="form-control" placeholder="What will be the description?" ref="createDescription" />
+                <div className="form-group row">
+                    <label className = "col-sm-2 col-form-label col-form-label-lg">Description</label>
+                    <div className="col-sm-10">
+                        <input type="text" className="form-control" placeholder="Description" ref="createDescription" />
+                    </div>
                 </div>
-                <div className="form-group">
-                <input type="text" className="form-control" placeholder="What will be the status?" ref="createStatus" />
-                </div>
-                <div className="form-group">
-                <input name="date" className="form-control" placeholder="date placeholder" type="date" className="form-control" ref="createDueDate"/>
+                <div className="form-group row">
+                    <label className = "col-sm-2 col-form-label col-form-label-lg">Status</label>
+                    <div className="col-sm-10">
+                    <select placeholder="Status" className="form-control" ref="createStatus">
+                      <option value = "done">done</option>
+                      <option value = "overDue">overDue</option>
+                      <option value = "pending">pending</option>
+                    </select>  
+                    </div>
+                </div>         
+                <div className="form-group row">
+                    <label className = "col-sm-2 col-form-label col-form-label-lg">Due Date</label>
+                    <div className="col-sm-10">
+                        <input name="date" className="form-control" placeholder="date placeholder" type="date" className="form-control" ref="createDueDate"/>
+                    </div>
                 </div>
                 <button className="btn btn-primary">Create</button>
                 {this.renderError()}
